@@ -17,7 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className='py-3'>
+          <h1>Диспетчер задач</h1>
+        </header>
+        {children}
+      </body>
     </html>
   )
 }
