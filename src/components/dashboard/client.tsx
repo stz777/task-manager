@@ -48,7 +48,7 @@ export default function Client(props: { tasks: TaskFromDBInterface[] }) {
 
 
 function TaskCard(props: FullTaskInterface) {
-    return <div className="card">
+    return <div className="card mb-3">
         <div className="card-header">
             <h5>Задача #{props.id}</h5>
         </div>
