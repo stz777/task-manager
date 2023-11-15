@@ -17,7 +17,7 @@ export async function POST(request: Request) {
         return x[0].insertId;
     })
         .catch(x => {
-            console.log('errorrrrrrr', (x));
+            console.log('error #vuf7', (x));
             return 0;
         });
 
