@@ -1,34 +1,53 @@
 "use client"
 
 import { PostWrapper } from "@/components/fetch/fetchWrapper";
+import roles from "@/components/roles/roles";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+interface Employee {
+  id: number
+  created_date: any
+  is_active: boolean | 1 | 0
+  username: string
+  telegram_id: string
+  tg_chat_id: string
+  contacts: string
+  role: string
+}
 
 export default function CreateEmployeeForm() {
   const {
     register,
     handleSubmit,
-  } = useForm<any>()
+  } = useForm<Employee>({
+    defaultValues: {
+      username: "дядя вася",
+      telegram_id: "manamana",
+      contacts: "телефоны, шмелефоны",
+      role: "manager"
+    }
+  })
   return <>
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input className="form-control" {...register("title")} placeholder="ФИО сотрудника" />
-      <select {...register("role", { required: true })} defaultValue="" className="form-select" aria-label="Default select example">
-        <option value="" disabled>
-          Выберите должность
-        </option>
-        <option value="manager">Менеджер</option>
-        <option value="designer">Дизайнер</option>
-        <option value="">Дизайнер</option>
+      <input className="form-control" {...register("username")} placeholder="ФИО сотрудника" />
+      <input className="form-control" {...register("telegram_id")} placeholder="Телеграм" />
+      <textarea className="form-control" cols={30} rows={10} {...register("contacts")}></textarea>
+      <select {...register("role", { required: true })} className="form-select" aria-label="Default select example">
+        <option value="" disabled>Выберите должность</option>
+        {roles.map(role => <option key={role.slug} value={role.slug}>{role.title}</option>)}
       </select>
       <button>сохранить</button>
     </form>
   </>
 }
 
-async function onSubmit({ title }: any) {
+async function onSubmit(values: any) {
   try {
-    const postWrapper = new PostWrapper(); //postDataResponse
-    const postDataResponse = await postWrapper.post('/api/employees/create', JSON.stringify({ title }));
-    console.log('postDataResponse', postDataResponse);
+    const postWrapper = new PostWrapper();
+    const postDataResponse = await postWrapper.post('/api/employees/create', JSON.stringify(values));
+    console.log({ postDataResponse });
+    toast(JSON.stringify(postDataResponse, null, 2))
   } catch (error) {
     console.log('err #fnru4', error);
   }
