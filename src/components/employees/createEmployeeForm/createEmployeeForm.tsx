@@ -6,7 +6,6 @@ import { EmployeeFromDB } from "@/types/employees/employeeFromDB";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-
 export default function CreateEmployeeForm() {
   const {
     register,
