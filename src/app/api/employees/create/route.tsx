@@ -1,10 +1,18 @@
+import createEmployee from "@/db/employees/create/createEmployee";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     const data = await request.json();
-    console.log({ data });
+    const employeeId = await createEmployee(data);
+    if (!employeeId) {
+        return NextResponse.json({
+            success: false,
+            error: "#c82n"
+        })
+    }
     return NextResponse.json({
-        success: null,
-        data
+        success: true,
+        data,
+        employeeId
     })
 }

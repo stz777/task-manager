@@ -2,25 +2,16 @@
 
 import { PostWrapper } from "@/components/fetch/fetchWrapper";
 import roles from "@/components/roles/roles";
+import { EmployeeFromDB } from "@/types/employees/employeeFromDB";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-interface Employee {
-  id: number
-  created_date: any
-  is_active: boolean | 1 | 0
-  username: string
-  telegram_id: string
-  tg_chat_id: string
-  contacts: string
-  role: string
-}
 
 export default function CreateEmployeeForm() {
   const {
     register,
     handleSubmit,
-  } = useForm<Employee>({
+  } = useForm<EmployeeFromDB>({
     defaultValues: {
       username: "дядя вася",
       telegram_id: "manamana",
@@ -46,8 +37,9 @@ async function onSubmit(values: any) {
   try {
     const postWrapper = new PostWrapper();
     const postDataResponse = await postWrapper.post('/api/employees/create', JSON.stringify(values));
-    console.log({ postDataResponse });
-    toast(JSON.stringify(postDataResponse, null, 2))
+    if (postDataResponse.success) {
+      toast.success("Новый сотрудник создан")
+    }
   } catch (error) {
     console.log('err #fnru4', error);
   }
