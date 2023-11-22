@@ -1,8 +1,7 @@
-import db_connection from "@/app/tools/dbConnect";
-import { EmployeeFromDB } from "@/types/employees/employeeFromDB";
+import getAllEmployeesFromDB from "@/db/employees/getAllEmployees/getAllEmployeesFromDB";
 
 export default async function ViewAllEmployees() {
-    const employees = await getAllEmployees();
+    const employees = await getAllEmployeesFromDB();
     return <>
         <table className="table w-auto striped table-border">
             <thead>
@@ -18,10 +17,4 @@ export default async function ViewAllEmployees() {
             {JSON.stringify(employees, null, 2)}
         </pre>
     </>
-}
-
-async function getAllEmployees(): Promise<EmployeeFromDB[]> {
-    return db_connection.promise().query("select * from employees ORDER BY id DESC").then(([x]: any) => {
-        return x;
-    })
 }
