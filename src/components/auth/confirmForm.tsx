@@ -36,11 +36,11 @@ export default function ConfirmForm() {
                 // toast.success("Вы успешно авторизировались;");
                 window.location.pathname = "/";
             } else {
-                toast.error("Что-то пошло не так");
+                toast.error("Что-то пошло не так #z3zc " + data.error);
             }
         })
             .catch(error => {
-                toast.error("Что-то пошло не так");
+                toast.error("Что-то пошло не так #d83nf");
                 const statusText = String(error);
                 fetch(
                     `/api/bugReport`,
@@ -54,7 +54,8 @@ export default function ConfirmForm() {
                                 err: "#m3n5vh0s7",
                                 data: {
                                     statusText,
-                                    values: data
+                                    values: data,
+                                    error: String(error)
                                 }
                             }
                         })
