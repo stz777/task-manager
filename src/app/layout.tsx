@@ -3,7 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Link from 'next/link';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,14 +21,20 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={inter.className}>
-        <div className="d-flex">
-          <Link href="/employees" className='btn btn-sm btn-outline-dark'>Сотрудники</Link>
-          <Link href="/login" className='btn btn-sm btn-outline-dark'>Login</Link>
+        <div className="row">
+          <div className='col-2'>
+            <h1>Диспетчер задач STZ</h1>
+            <nav>
+              <Link href="/employees" className='btn btn-sm btn-outline-dark'>Сотрудники</Link>
+              <Link href="/login" className='btn btn-sm btn-outline-dark'>Login</Link>
+            </nav>
+          </div>
+          <div className='col'>
+            <main>
+              {children}
+            </main>
+          </div>
         </div>
-        <header className='py-3'>
-          <h1>Диспетчер задач</h1>
-        </header>
-        {children}
         <ToastContainer />
       </body>
     </html>
