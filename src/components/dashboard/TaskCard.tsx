@@ -1,16 +1,11 @@
 "use client"
 import { FullTaskInterface } from "@/app/types/tasks/FullTaskInterface";
 import dayjs from "dayjs";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Chat from "../chat/chat";
 
 export default function TaskCard(props: FullTaskInterface) {
-    const [show, setShow] = useState(false);
-
-
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
 
 
     return <div className="card mb-3">
