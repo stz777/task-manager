@@ -4,6 +4,7 @@ import taskStatuses from "@/consts/taskStatuses";
 import { useEffect, useState } from "react";
 import fetchAllTasks from "./fetchAllTasks";
 import TaskCard from "./TaskCard";
+import TaskWrapper from "./TaskWrapper";
 
 export default function Client(props: { tasks: TaskFromDBInterface[] }) {
     const [stateTasks, setTasks] = useState(props.tasks);
@@ -27,18 +28,22 @@ export default function Client(props: { tasks: TaskFromDBInterface[] }) {
         return () => { mount = false; }
     }, [])
 
-
     const outputTasks = stateTasks ? stateTasks : props.tasks;
 
-    return <div className="row">
-        {Object.entries(taskStatuses)
-            .map(([status_id, status_title]) => <div className="col border" key={status_id}>
-                <h3>{status_title}</h3>
-                {(() => {
-                    const taskWithStatus = outputTasks.filter(task => task.status === Number(status_id));
-                    return taskWithStatus.map(task => <TaskCard key={task.id} {...task} />);
-                })()}
+    return <>
+        <div className="row">
+            {Object.entries(taskStatuses)
+                .map(([status_id, status_title]) => <div className="col border" key={status_id}>
+                    <h3>{status_title}</h3>
+                    {(() => {
+                        const taskWithStatus = outputTasks.filter(task => task.status === Number(status_id));
+                        return taskWithStatus.map(task => <TaskWrapper key={task.id} task={task}>
+                            <TaskCard  {...task} />
+                        </TaskWrapper>
+                        );
+                    })()}
 
-            </div>)}
-    </div>
+                </div>)}
+        </div>
+    </>
 }
