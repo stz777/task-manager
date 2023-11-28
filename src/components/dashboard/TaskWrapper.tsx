@@ -16,22 +16,20 @@ export default function TaskWrapper({ task, children }: { task: FullTaskInterfac
         <SideModal
             closeHandler={() => setOpen(false)}
             isOpen={open}
-            children={<>
-                <h1>Задача #{task.id}</h1>
-                <table className="table">
-                    <tbody>
-                        <tr><td>Описание</td><td>{task.description}</td></tr>
-                        <tr><td>Статус</td><td>{task.status}</td></tr>
-                        <tr><td>Цена</td><td>{task.price}</td></tr>
-                        <tr><td>Создано</td><td>{dayjs(task.created_date).format("DD.MM.YYYY hh:mm")}</td></tr>
-                        <tr><td>Дедлайн</td><td>{dayjs(task.deadline).format("DD.MM.YYYY hh:mm")}</td></tr>
-                        <tr><td>Ответственные</td><td>
-                            <pre>{JSON.stringify(task.employees, null, 2)}</pre>
-                        </td></tr>
-                    </tbody>
-                </table>
-                {/* <pre>{JSON.stringify(task, null, 2)}</pre> */}
-            </>}
-        />
+        >
+            <h1>Задача #{task.id}</h1>
+            <table className="table">
+                <tbody>
+                    <tr><td>Описание</td><td>{task.description}</td></tr>
+                    <tr><td>Статус</td><td>{task.status}</td></tr>
+                    <tr><td>Цена</td><td>{task.price}</td></tr>
+                    <tr><td>Создано</td><td>{dayjs(task.created_date).format("DD.MM.YYYY hh:mm")}</td></tr>
+                    <tr><td>Дедлайн</td><td>{dayjs(task.deadline).format("DD.MM.YYYY hh:mm")}</td></tr>
+                    <tr><td>Ответственные</td><td>
+                        <pre>{JSON.stringify(task.employees, null, 2)}</pre>
+                    </td></tr>
+                </tbody>
+            </table>
+        </SideModal>
     </div>
 }
