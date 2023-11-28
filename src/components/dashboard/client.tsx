@@ -1,12 +1,12 @@
 "use client"
-import { TaskFromDBInterface } from "@/app/types/tasks/TaskFromDBInterface";
 import taskStatuses from "@/consts/taskStatuses";
 import { useEffect, useState } from "react";
 import fetchAllTasks from "./fetchAllTasks";
 import TaskCard from "./TaskCard";
 import TaskWrapper from "./TaskWrapper";
+import { FullTaskInterface } from "@/app/types/tasks/FullTaskInterface";
 
-export default function Client(props: { tasks: TaskFromDBInterface[] }) {
+export default function Client(props: { tasks: FullTaskInterface[] }) {
     const [stateTasks, setTasks] = useState(props.tasks);
     useEffect(() => {
         let mount = true;

@@ -23,8 +23,6 @@ export default async function Home() {
   )
 }
 
-
-
 export async function getColumns(): Promise<any> {
   return await new Promise(
     r => pool.query(
@@ -39,7 +37,6 @@ export async function getColumns(): Promise<any> {
   )
 }
 
-
 export async function getProjects(): Promise<Project[]> {
   return await new Promise(
     r => pool.query(
@@ -52,7 +49,7 @@ export async function getProjects(): Promise<Project[]> {
       }
     )
   )
-}
+} 
 
 
 export async function getTasks(projectId: number): Promise<Task[]> {
