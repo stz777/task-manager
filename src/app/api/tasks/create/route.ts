@@ -62,13 +62,11 @@ export async function POST(request: Request) {
             const buffer = await image.arrayBuffer();
             const filePath = `${String(process.env.IMAGES_FOLDER)}/${filename}`;
             const imagesFolder = `${String(process.env.IMAGES_FOLDER)}`;
-            if (fs.existsSync(
+            if (!fs.existsSync(
                 imagesFolder
             )) {
-                //console.log('imagesFolder exists:');
-            } else {
                 try {
-                    const folderIsCreated = await new Promise(res => {
+                    await new Promise(res => {
                         fs.mkdir(imagesFolder, { recursive: true }, (err) => {
                             if (err) {
                                 console.error('Ошибка при создании папки: err#v43io', err);
@@ -86,7 +84,9 @@ export async function POST(request: Request) {
                     );
                 }
             }
+
             fs.writeFileSync(filePath, Buffer.from(buffer));
+
         }
 
     }
