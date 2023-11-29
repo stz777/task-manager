@@ -3,7 +3,7 @@ import { sendMessageToTg } from "../../bugReport/sendMessageToTg";
 
 export default async function checkImageIsExists(imageName: string) {
     return db_connection.promise().query(
-        "SELECT * FROM media WHERE name = ?",
+        "SELECT * FROM images WHERE image_name = ?",
         [imageName]
     )
         .then(
