@@ -17,11 +17,6 @@ export async function POST(request: Request) {
         deadline,
     } = formdataObj;
 
-    // if (images instanceof File) {
-
-    // }
-
-
     const newTaskId: number = await pool.promise().query(
         "INSERT INTO tasks ( description, price, deadline ) VALUES (?,?,?)",
         [description, price, deadline]
@@ -52,7 +47,7 @@ export async function POST(request: Request) {
     for (let index = 0; index < images.length; index++) {
         const image = images[index];
         let filename = slugify(image.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/igm, ""));
-        // console.log('filename', filename);
+
         const imageIsExists = await checkImageIsExists(filename);
         if (imageIsExists) {
             const splittedFilename = filename.split(".");
@@ -66,16 +61,35 @@ export async function POST(request: Request) {
         if (!!res) {
             const buffer = await image.arrayBuffer();
             const filePath = `${String(process.env.IMAGES_FOLDER)}/${filename}`;
-            // console.log('filePath', filePath);
+            const imagesFolder = `${String(process.env.IMAGES_FOLDER)}`;
+            if (fs.existsSync(
+                imagesFolder
+            )) {
+                //console.log('imagesFolder exists:');
+            } else {
+                try {
+                    const folderIsCreated = await new Promise(res => {
+                        fs.mkdir(imagesFolder, { recursive: true }, (err) => {
+                            if (err) {
+                                console.error('Ошибка при создании папки: err#v43io', err);
+                                res(false);
+                            } else {
+                                res(true);
+                            }
+                        });
+                    });
 
+                } catch (error) {
+                    console.error(
+                        "err #m4im3",
+                        error
+                    );
+                }
+            }
             fs.writeFileSync(filePath, Buffer.from(buffer));
         }
 
     }
-
-
-
-
 
     return new Response(
         JSON.stringify({
@@ -90,5 +104,4 @@ export async function POST(request: Request) {
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
             }
         });
-
 }
