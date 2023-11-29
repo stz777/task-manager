@@ -32,7 +32,7 @@ export default function ConfirmForm() {
             }
         ).then(data => {// , { sameSite:'strict' }
             if (data.success) {
-                document.cookie = `auth=${data.token}; expires=Tue, 19 Jan 2038 03:14:07 GMT; SameSite=Strict;`;
+                document.cookie = `tm_auth=${data.token}; expires=Tue, 19 Jan 2038 03:14:07 GMT; SameSite=Strict;`;
                 // toast.success("Вы успешно авторизировались;");
                 window.location.pathname = "/";
             } else {

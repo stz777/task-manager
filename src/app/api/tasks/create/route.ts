@@ -21,18 +21,9 @@ export async function POST(request: Request) {
             return 0;
         });
 
-    // return NextResponse.json({
-    //     success: true,
-    //     task: newTaskId,
-    // })
-
-    return new Response(JSON.stringify({ a: "b" }), {
-        status: 200,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        }
-    });
+    return NextResponse.json({
+        success: true,
+        task: newTaskId,
+    })
 
 } 

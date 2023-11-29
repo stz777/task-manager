@@ -50,7 +50,7 @@ function sendMessage(token, essense, essenseId, text) {
             method: 'POST',
             body: formData,
             headers: {
-                Cookie: `auth=${token}`
+                Cookie: `tm_auth=${token}`
             },
         }).then(x => {
             console.log('x.ok', x.ok);

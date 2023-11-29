@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     const { cookies } = request;
-    const authToken = cookies.get('auth');
+    const authToken = cookies.get('tm_auth');
 
 
     if (!request.nextUrl.pathname.startsWith('/_next') && !request.nextUrl.pathname.startsWith('/api')) { // IS PAGE!!
@@ -30,11 +30,15 @@ export async function middleware(request: NextRequest) {
 
     else if (request.nextUrl.pathname.startsWith('/api')) { // IS API!!
         const tokenIsValid = await checkAuthToken(String(authToken?.value), request.nextUrl.origin)
+        const extendedURLS = [
+            "/api/auth/login",
+            "/api/bugReport",
+            "/api/auth/checkToken",
+            "/api/auth/confirm",
+            "/api/tasks/create"
+        ]
         if (
-            (pathname !== "/api/auth/login")
-            && (pathname !== "/api/bugReport")
-            && (pathname !== "/api/auth/checkToken")
-            && (pathname !== "/api/auth/confirm")
+            !extendedURLS.includes(pathname)
         ) {
             if (!tokenIsValid) {
                 return new Response(null, {

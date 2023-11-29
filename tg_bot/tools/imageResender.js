@@ -69,7 +69,7 @@ function sendMessage(url, fileName, token, essense, essenseId, description) {
       method: 'POST',
       body: formData,
       headers: {
-        Cookie: `auth=${token}`
+        Cookie: `tm_auth=${token}`
       },
     }).then(x => {
       console.log('x.ok', x.ok);
