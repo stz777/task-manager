@@ -4,8 +4,10 @@ import { FullTaskInterface } from "@/app/types/tasks/FullTaskInterface";
 import { useState } from "react";
 import SideModal from "../side-modal/SideModal";
 import dayjs from "dayjs";
+import Image from "next/image";
 
 export default function TaskWrapper({ task, children }: { task: FullTaskInterface; children: React.ReactNode }) {
+
     const [open, setOpen] = useState(false);
     return <div>
         <div onClick={() => {
@@ -29,7 +31,26 @@ export default function TaskWrapper({ task, children }: { task: FullTaskInterfac
                         <pre>{JSON.stringify(task.employees, null, 2)}</pre>
                     </td></tr>
                     <tr><td>Изображения</td><td>
-                        <pre>{JSON.stringify(task.images, null, 2)}</pre>
+                        {
+                            task.images.length
+                                ? <>
+                                    {task.images
+                                        .map(image => {
+                                            const path = `${process.env.NEXT_PUBLIC_HOST}/${process.env.NEXT_PUBLIC_IMAGES_FOLDER_WEB}/${image.image_name}`;
+                                            return <div key={image.id}>
+                                                <div className="col position-relative" style={{ height: "300px" }}>
+                                                    <Image
+                                                        loader={() => path}
+                                                        src={path} alt=""
+                                                        fill={true}
+                                                        style={{ objectFit: "contain" }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        })}
+                                </>
+                                : <>нет картинок</>
+                        }
                     </td></tr>
                 </tbody>
             </table>

@@ -38,11 +38,12 @@ export default function Client(props: { tasks: FullTaskInterface[] }) {
                     {(() => {
                         const taskWithStatus = outputTasks.filter(task => task.status === Number(status_id));
                         return taskWithStatus.map(task => <TaskWrapper key={task.id} task={task}>
-                            <TaskCard  {...task} />
+                            <>
+                                <TaskCard  {...task} />
+                            </>
                         </TaskWrapper>
                         );
                     })()}
-
                 </div>)}
         </div>
     </>

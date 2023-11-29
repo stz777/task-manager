@@ -85,8 +85,12 @@ export async function POST(request: Request) {
                 }
             }
 
-            fs.writeFileSync(filePath, Buffer.from(buffer));
-
+            try {
+                fs.writeFileSync(filePath, Buffer.from(buffer));
+                console.log('Запись в файл выполнена успешно');
+            } catch (error) {
+                console.error('Ошибка при записи в файл: error #1n04n: ', error);
+            }
         }
 
     }

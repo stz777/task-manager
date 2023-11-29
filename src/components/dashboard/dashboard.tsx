@@ -1,9 +1,8 @@
 import getAllTasks from "@/db/tasks/getAllTasks";
 import { FullTaskInterface } from "@/app/types/tasks/FullTaskInterface";
 import Client from "./client";
-import { EmployeeFromDB } from "@/types/employees/employeeFromDB";
-import db_connection from "@/app/tools/dbConnect";
-import { ImageFromDBInterface } from "@/app/types/images/ImageFromDBInterface";
+import getEmployeesByTaskId from "@/db/employees/getEmployeesByTaskId";
+import getImagesByTaskId from "@/db/images/getImagesByTaskId";
 
 export default async function Dashboard() {
     const tasksFromDB = await getAllTasks();
@@ -12,6 +11,7 @@ export default async function Dashboard() {
         const task = tasksFromDB[index];
         const employees = await getEmployeesByTaskId(task.id);
         const images = await getImagesByTaskId(task.id);
+
         fullTasks.push({
             ...task,
             employees: employees,
@@ -21,22 +21,4 @@ export default async function Dashboard() {
     return <>
         <Client tasks={fullTasks} />
     </>
-}
-
-async function getEmployeesByTaskId(taskId: number): Promise<EmployeeFromDB[]> {
-    return db_connection.promise().query(
-        "SELECT * FROM employees"
-    )
-        .then(x => {
-            return [];
-        })
-}
-
-async function getImagesByTaskId(taskId: number): Promise<ImageFromDBInterface[]> {
-    return db_connection.promise().query(
-        "SELECT * FROM images"
-    )
-        .then(x => {
-            return [];
-        })
 }
