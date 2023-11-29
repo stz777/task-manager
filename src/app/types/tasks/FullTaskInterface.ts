@@ -1,3 +1,7 @@
 import { EmployeeFromDB } from "@/types/employees/employeeFromDB";
 import { TaskFromDBInterface } from "./TaskFromDBInterface";
-export type FullTaskInterface = TaskFromDBInterface & { employees: EmployeeFromDB[] };
+import { ImageFromDBInterface } from "../images/ImageFromDBInterface";
+
+export type FullTaskInterface = TaskFromDBInterface
+    & { employees: EmployeeFromDB[] }
+    & { images: ImageFromDBInterface[] };

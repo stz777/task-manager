@@ -12,7 +12,8 @@ export default async function Dashboard() {
         const employees = await getEmployeesByTaskId(task.id);
         fullTasks.push({
             ...task,
-            employees: employees
+            employees: employees,
+            images: []
         })
     }
     return <>
