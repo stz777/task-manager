@@ -28,6 +28,9 @@ export default function TaskWrapper({ task, children }: { task: FullTaskInterfac
                     <tr><td>Ответственные</td><td>
                         <pre>{JSON.stringify(task.employees, null, 2)}</pre>
                     </td></tr>
+                    <tr><td>Изображения</td><td>
+                        <pre>{JSON.stringify(task.images, null, 2)}</pre>
+                    </td></tr>
                 </tbody>
             </table>
         </SideModal>

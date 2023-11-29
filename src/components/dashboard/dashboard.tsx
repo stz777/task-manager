@@ -3,6 +3,7 @@ import { FullTaskInterface } from "@/app/types/tasks/FullTaskInterface";
 import Client from "./client";
 import { EmployeeFromDB } from "@/types/employees/employeeFromDB";
 import db_connection from "@/app/tools/dbConnect";
+import { ImageFromDBInterface } from "@/app/types/images/ImageFromDBInterface";
 
 export default async function Dashboard() {
     const tasksFromDB = await getAllTasks();
@@ -10,10 +11,11 @@ export default async function Dashboard() {
     for (let index = 0; index < tasksFromDB.length; index++) {
         const task = tasksFromDB[index];
         const employees = await getEmployeesByTaskId(task.id);
+        const images = await getImagesByTaskId(task.id);
         fullTasks.push({
             ...task,
             employees: employees,
-            images: []
+            images: images
         })
     }
     return <>
@@ -24,6 +26,15 @@ export default async function Dashboard() {
 async function getEmployeesByTaskId(taskId: number): Promise<EmployeeFromDB[]> {
     return db_connection.promise().query(
         "SELECT * FROM employees"
+    )
+        .then(x => {
+            return [];
+        })
+}
+
+async function getImagesByTaskId(taskId: number): Promise<ImageFromDBInterface[]> {
+    return db_connection.promise().query(
+        "SELECT * FROM images"
     )
         .then(x => {
             return [];
